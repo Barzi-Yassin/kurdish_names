@@ -14,7 +14,7 @@ import 'package:kurdish_names/src/kurdish_names/models/names_data_model.dart';
 import 'package:kurdish_names/src/kurdish_names/services/kurdish_names_service.dart';
 
 class KurdishNamesList extends StatefulWidget {
-  KurdishNamesList({Key? key}) : super(key: key);
+  const KurdishNamesList({Key? key}) : super(key: key);
 
   @override
   State<KurdishNamesList> createState() => _KurdishNamesListState();
@@ -22,12 +22,14 @@ class KurdishNamesList extends StatefulWidget {
 
 class _KurdishNamesListState extends State<KurdishNamesList> {
   KurdishNamesService _namesService = KurdishNamesService();
+  static List<String> genders= ["M" , "F","0"];
 
-  String _genderDropdownValue = "M";
+  String gender = genders[0];
+  String _genderDropdownValue = genders[0];   // the error
   String _voteDropdownValue = "posative";
   String _limitDropdownValue = "10";
 
-  String gender = "M";
+
   String vote = "posative";
   String limit = "10";
 
@@ -44,20 +46,20 @@ class _KurdishNamesListState extends State<KurdishNamesList> {
       body: Column(children: [
         Container(
           padding: const EdgeInsets.all(20),
-          // color: Colors.black26,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               DropdownButton<String>(
-                // dropdownColor: Colors.blueAccent.shade200,
+                // hint: Text('Gender'),
                 dropdownColor: Colors.white,
                 value: _genderDropdownValue,
                 style: const TextStyle(color: Colors.blue),
                 underline: const Divider(height: 0.7),
-                items: <String>['Both', 'M', 'Female']
+                items: genders
                     .map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
+                    
                     child: Text(value,
                         style: TextStyle(
                             fontSize: 18,
@@ -75,9 +77,9 @@ class _KurdishNamesListState extends State<KurdishNamesList> {
                             gender = 'O';
                             break;
                           }
-                        case 'Male':
+                        case 'Male':  
                           {
-                            gender = 'M';
+                            gender = 'M';  
                             break;
                           }
                         case 'Female':

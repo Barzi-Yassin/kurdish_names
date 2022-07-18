@@ -22,13 +22,12 @@ class KurdishNamesList extends StatefulWidget {
 
 class _KurdishNamesListState extends State<KurdishNamesList> {
   KurdishNamesService _namesService = KurdishNamesService();
-  static List<String> genders= ["M" , "F","0"];
+  static List<String> genders = ["Male", "Female", "Both"];
 
   String gender = genders[0];
-  String _genderDropdownValue = genders[0];   // the error
+  // String _genderDropdownValue = genders[0]; // the error
   String _voteDropdownValue = "posative";
   String _limitDropdownValue = "10";
-
 
   String vote = "posative";
   String limit = "10";
@@ -52,14 +51,12 @@ class _KurdishNamesListState extends State<KurdishNamesList> {
               DropdownButton<String>(
                 // hint: Text('Gender'),
                 dropdownColor: Colors.white,
-                value: _genderDropdownValue,
+                value: gender,
                 style: const TextStyle(color: Colors.blue),
                 underline: const Divider(height: 0.7),
-                items: genders
-                    .map<DropdownMenuItem<String>>((String value) {
+                items: genders.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
-                    
                     child: Text(value,
                         style: TextStyle(
                             fontSize: 18,
@@ -70,24 +67,7 @@ class _KurdishNamesListState extends State<KurdishNamesList> {
                 onChanged: (String? newValue) {
                   setState(
                     () {
-                      _genderDropdownValue = newValue!;
-                      switch (_genderDropdownValue) {
-                        case 'Both':
-                          {
-                            gender = 'O';
-                            break;
-                          }
-                        case 'Male':  
-                          {
-                            gender = 'M';  
-                            break;
-                          }
-                        case 'Female':
-                          {
-                            gender = 'F';
-                            break;
-                          }
-                      }
+                      gender = newValue!;
                     },
                   );
                 },
@@ -199,8 +179,10 @@ class _KurdishNamesListState extends State<KurdishNamesList> {
                           ),
                           leading: Text(
                             "${index + 1}",
-                            style:
-                                TextStyle(fontSize: 16.5, color: Colors.blue, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontSize: 16.5,
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                       );

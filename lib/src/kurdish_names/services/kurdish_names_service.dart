@@ -7,35 +7,33 @@ class KurdishNamesService {
 
   // API end point : https://nawikurdi.com/api
 
-
-
-
-  
-
   // Future<KurdishNames> fetchListOfNames(String gender, String vote, String limit) async {
   Future<KurdishNames> fetchListOfNames(Map<String, dynamic> keys) async {
-    // TODO: Create the URI
-    // TODO: https , host: nawikurdi.com , path: api ,
+    String? _selectedGeneder;
 
-    // final httpsUri = Uri(
-    // scheme: 'https',
-    // host: 'dart.dev',
-    // path: 'guides/libraries/library-tour',
-    // fragment: 'numbers');
-    // print(httpsUri); // https://dart.dev/guides/libraries/library-tour#numbers
+    if (keys["gender"] == "Male") {
+      _selectedGeneder = "M";
+    } else if (keys["gender"] == "Female") {
+      _selectedGeneder = "F";
+    } else {
+      _selectedGeneder = "O";
+    }
+
     Uri _kurdishNamesUri = Uri(
-      scheme: 'https',
-      host: 'nawikurdi.com',
-      path: 'api',
-      queryParameters: keys
-    );
+        scheme: 'https',
+        host: 'nawikurdi.com',
+        path: 'api',
+        queryParameters: {
+          "gender": _selectedGeneder,
+          "limit": keys["limit"],
+          "offset": "0",
+          "sort": keys["sort"],
+        });
 
     http.Response _response =
         await http.get(_kurdishNamesUri).catchError((err) => print(err));
-        KurdishNames _kurdishNames = KurdishNames.fromJson(_response.body);
-        print(_response.body);
-        return _kurdishNames;
+    KurdishNames _kurdishNames = KurdishNames.fromJson(_response.body);
+    print(_response.body);
+    return _kurdishNames;
   }
 }
-
-
